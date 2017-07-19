@@ -9,7 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function(name) {
+Object.keys(baseWebpackConfig.entry).forEach(function (name) {
     baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
@@ -36,17 +36,17 @@ module.exports = merge(baseWebpackConfig, {
 var pages = utils.getEntry('./src/module/**/*.html');
 for (var pathname in pages) {
     var conf = {
-            filename: pathname.substr(pathname.lastIndexOf('/') + 1) + '.html',
-            template: 'html-withimg-loader!' + pages[pathname], // html中直接使用img标签src加载图片,模板路径
-            minify: { //传递 html-minifier 选项给 minify 输出
-                removeComments: true,
-                collapseWhitespace: true,
-                removeAttributeQuotes: true
-            },
-            inject: true, // js插入位置
-            // 每个html引用的js模块，也可以在这里加上vendor等公用模块
-            chunks: [pathname, "vendor", "manifest"]
-        }
-        // 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象
+        filename: pathname.substr(pathname.lastIndexOf('/') + 1) + '.html',
+        template: 'html-withimg-loader!' + pages[pathname], // html中直接使用img标签src加载图片,模板路径
+        minify: { //传递 html-minifier 选项给 minify 输出
+            removeComments: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true
+        },
+        inject: true, // js插入位置
+        // 每个html引用的js模块，也可以在这里加上vendor等公用模块
+        chunks: [pathname, "vendor", "manifest"]
+    }
+    // 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象
     module.exports.plugins.push(new HtmlWebpackPlugin(conf));
 }

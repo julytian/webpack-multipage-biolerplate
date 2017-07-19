@@ -1,11 +1,11 @@
 var path = require('path')
 var glob = require('glob')
 var config = require('../config')
-    // 提取css样式到一个共同文件
+// 提取css样式到一个共同文件
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // 静态资源路径
-exports.assetsPath = function(_path) {
+exports.assetsPath = function (_path) {
     var assetsSubDirectory = process.env.NODE_ENV === 'production' ?
         config.build.assetsSubDirectory :
         config.dev.assetsSubDirectory
@@ -13,7 +13,7 @@ exports.assetsPath = function(_path) {
 }
 
 // css loaders
-exports.cssLoaders = function(options) {
+exports.cssLoaders = function (options) {
     options = options || {}
 
     var cssLoader = {
@@ -61,7 +61,7 @@ exports.cssLoaders = function(options) {
 }
 
 // Generate loaders for standalone style files (outside of .vue)
-exports.styleLoaders = function(options) {
+exports.styleLoaders = function (options) {
     var output = []
     var loaders = exports.cssLoaders(options)
     for (var extension in loaders) {
@@ -89,12 +89,12 @@ index
 [ 'module', 'index', 'index.js' ]
  */
 // 多入口配置,获取入口路径
-exports.getEntry = function(globPath) {
+exports.getEntry = function (globPath) {
     var entries = {},
         basename, tmp, pathname;
 
     //通过glob.sync方法获取指定的入口文件
-    glob.sync(globPath).forEach(function(entry) {
+    glob.sync(globPath).forEach(function (entry) {
         basename = path.basename(entry, path.extname(entry));
         tmp = entry.split('/').splice(-3);
         // 输出js和html的路径

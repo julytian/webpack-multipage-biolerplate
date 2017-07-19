@@ -20,9 +20,7 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 
 // 根据 Node 环境来引入相应的 webpack 配置
-var webpackConfig = process.env.NODE_ENV === 'testing'
-    ? require('./webpack.prod.conf')
-    : require('./webpack.dev.conf')
+var webpackConfig = require('./webpack.dev.conf')
 
 // dev-server 监听的端口，默认为config.dev.port设置的端口，即8080
 var port = process.env.PORT || config.dev.port
@@ -49,7 +47,8 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 
 // webpack-hot-middleware，用于实现热重载功能的中间件
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-    log: () => { }
+    log: () => { },
+    heartbeat: 2000
 })
 
 // 当html-webpack-plugin提交之后通过热重载中间件发布重载动作使得页面重载
